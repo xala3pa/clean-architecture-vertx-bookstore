@@ -1,0 +1,3 @@
+rootProject.name = 'bookStore'
+include 'domain'
+

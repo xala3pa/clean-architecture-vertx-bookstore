@@ -13,6 +13,7 @@ import java.util.Date;
 @Builder
 public class Book {
 
+  private String ID;
   private String isbn;
   private String title;
   private String description;
@@ -21,5 +22,4 @@ public class Book {
   private String author;
   private Date dateAdded;
   private Date consumed;
-
 }

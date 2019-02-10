@@ -13,7 +13,7 @@ import java.util.Date;
 @Builder
 public class Book {
 
-  private Long isbn;
+  private String isbn;
   private String title;
   private String description;
   private BookCategory bookCategory;

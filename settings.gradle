@@ -1,8 +1,10 @@
 rootProject.name = 'bookStore'
 include 'domain'
-include ':adapter:idGenerator'
-include ':adapter:validator'
+include 'adapter:idGenerator'
+include 'adapter:validator'
+include 'adapter:repository'
 
-findProject("adapter:idGenerator")?.name = 'IDGenerator'
-findProject('adapter:validator')?.name = 'Validator'
+findProject(":adapter:idGenerator")?.name = 'IDGenerator'
+findProject(':adapter:validator')?.name = 'Validator'
+findProject(':adapter:repository')?.name = 'Repository'
 

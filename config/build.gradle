@@ -13,5 +13,9 @@ repositories {
 
 dependencies {
     implementation project(':domain')
+    implementation project(':adapter:vertx-controller')
+    implementation project(':adapter:IDGenerator')
+    implementation project(':adapter:repository')
+    implementation project(':adapter:validator')
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

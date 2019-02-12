@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+    id 'io.franzbecker.gradle-lombok' version '2.0'
+}
+
+ext {
+    vertxVersion = '3.6.3'
+    junitJupiterEngineVersion = '5.2.0'
+}
+
+group 'vertx.io.xala3pa'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile project(':domain')
+    implementation "io.vertx:vertx-web:$vertxVersion"
+    testImplementation "io.vertx:vertx-junit5:$vertxVersion"
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitJupiterEngineVersion")
+}

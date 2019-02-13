@@ -37,4 +37,17 @@ public class BookDTO {
             .bookStatus(bookStatus)
             .build();
   }
+
+  public BookDTO toDTO(final Book book) {
+    return BookDTO.builder()
+            .ID(book.getID())
+            .isbn(book.getIsbn())
+            .title(book.getTitle())
+            .description(book.getDescription())
+            .bookCategory(book.getBookCategory())
+            .bookStatus(book.getBookStatus())
+            .author(book.getAuthor())
+            .dateAdded(book.getDateAdded())
+            .build();
+  }
 }

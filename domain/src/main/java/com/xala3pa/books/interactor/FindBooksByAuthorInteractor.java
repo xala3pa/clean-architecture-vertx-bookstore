@@ -16,7 +16,7 @@ public class FindBooksByAuthorInteractor implements FindBooksByAuthor {
   }
 
   @Override
-  public List<Book> getBooks(String author) {
+  public List<Book> getBooks(String author) throws BooksNotFoundException {
     Optional<List<Book>> books = bookGateway.findBooksByAuthor(author);
     if (!books.isPresent()) {
       throw new BooksNotFoundException("No books found written by " + author);

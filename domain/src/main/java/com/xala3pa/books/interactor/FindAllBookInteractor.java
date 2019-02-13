@@ -16,7 +16,7 @@ public class FindAllBookInteractor implements FindAllBooks {
   }
 
   @Override
-  public List<Book> getBooks() {
+  public List<Book> getBooks() throws BooksNotFoundException {
     Optional<List<Book>> books = bookGateway.findAllBooks();
 
     if (!books.isPresent()) {

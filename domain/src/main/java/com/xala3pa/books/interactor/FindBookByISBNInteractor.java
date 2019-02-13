@@ -15,7 +15,7 @@ public class FindBookByISBNInteractor implements FindBookByISBN {
   }
 
   @Override
-  public Book getBooks(String ISBN) {
+  public Book getBooks(String ISBN) throws BooksNotFoundException {
     Optional<Book> book = bookGateway.getBookByISBN(ISBN);
 
     if (!book.isPresent()) {

@@ -19,7 +19,7 @@ public class RestVertxApplication extends AbstractVerticle {
     // Create a router object.
     Router router = Router.router(vertx);
     router.route().handler(BodyHandler.create());
-//    router.get("/books").handler(bookController::findAllbooks);
+    router.get("/books").handler(bookController::findAllBooks);
 //    router.get("/books/:isbn").handler(bookController::findBookByISBN);
 //    router.get("/books/:author").handler(bookController::findBooksByAuthor);
     router.post("/books").handler(bookController::createBook);

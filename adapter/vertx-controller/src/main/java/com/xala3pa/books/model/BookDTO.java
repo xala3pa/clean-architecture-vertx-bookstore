@@ -38,7 +38,7 @@ public class BookDTO {
             .build();
   }
 
-  public BookDTO toDTO(final Book book) {
+  public static BookDTO toDTO(final Book book) {
     return BookDTO.builder()
             .ID(book.getID())
             .isbn(book.getIsbn())

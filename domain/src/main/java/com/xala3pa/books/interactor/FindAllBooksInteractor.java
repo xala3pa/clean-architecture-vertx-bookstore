@@ -19,7 +19,7 @@ public class FindAllBooksInteractor implements FindAllBooks {
   public List<Book> getBooks() throws BooksNotFoundException {
     Optional<List<Book>> books = bookGateway.findAllBooks();
 
-    if (!books.isPresent()) {
+    if (!books.isPresent() || books.get().isEmpty()) {
       throw new BooksNotFoundException("We are run out of books");
     }
     return books.get();

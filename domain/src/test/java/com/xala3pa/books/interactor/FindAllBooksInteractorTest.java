@@ -5,14 +5,15 @@ import com.xala3pa.books.entity.BookCategory;
 import com.xala3pa.books.entity.BookStatus;
 import com.xala3pa.books.exception.BooksNotFoundException;
 import com.xala3pa.books.gateway.BookGateway;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -40,8 +41,6 @@ class FindAllBooksInteractorTest {
 
   @BeforeEach
   void setUp() {
-    MockitoAnnotations.initMocks(this);
-
     cleanArchitectureBook = Book.builder()
             .title(CLEAN_ARCHITECTURE)
             .isbn(ISBN_CLEAN_ARCH)
@@ -70,5 +69,13 @@ class FindAllBooksInteractorTest {
     List<Book> allBooks = findAllBooksInteractor.getBooks();
 
     assertThat(allBooks.size()).isEqualTo(books.get().size());
+  }
+
+  @Test
+  void should_throw_a_BooksNotFoundException_when_we_do_not_have_books() {
+
+    when(bookGateway.findAllBooks()).thenReturn(Optional.of(new ArrayList<>()));
+
+    Assertions.assertThrows(BooksNotFoundException.class, () -> findAllBooksInteractor.getBooks());
   }
 }

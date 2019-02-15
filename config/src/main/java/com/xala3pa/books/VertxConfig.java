@@ -11,7 +11,7 @@ import com.xala3pa.books.entity.BookStatus;
 import com.xala3pa.books.gateway.BookGateway;
 import com.xala3pa.books.gateway.InMemoryRepository;
 import com.xala3pa.books.interactor.CreateBookInteractor;
-import com.xala3pa.books.interactor.FindAllBookInteractor;
+import com.xala3pa.books.interactor.FindAllBooksInteractor;
 import com.xala3pa.books.interactor.FindBookByISBNInteractor;
 import com.xala3pa.books.interactor.FindBooksByAuthorInteractor;
 import com.xala3pa.books.port.BookValidator;
@@ -25,7 +25,7 @@ public class VertxConfig {
   private final IdGenerator idGenerator = new IdGeneratorUUID();
   private final BookValidator bookValidator = new BookValidatorImpl();
   private final CreateBook createBook = new CreateBookInteractor(bookGateway, bookValidator, idGenerator);
-  private final FindAllBooks findAllBooks = new FindAllBookInteractor(bookGateway);
+  private final FindAllBooks findAllBooks = new FindAllBooksInteractor(bookGateway);
   private final FindBookByISBN findBookByISBN = new FindBookByISBNInteractor(bookGateway);
   private final FindBooksByAuthor findBooksByAuthor = new FindBooksByAuthorInteractor(bookGateway);
 

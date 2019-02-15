@@ -8,10 +8,10 @@ import com.xala3pa.books.gateway.BookGateway;
 import java.util.List;
 import java.util.Optional;
 
-public class FindAllBookInteractor implements FindAllBooks {
+public class FindAllBooksInteractor implements FindAllBooks {
   private BookGateway bookGateway;
 
-  public FindAllBookInteractor(BookGateway bookGateway) {
+  public FindAllBooksInteractor(BookGateway bookGateway) {
     this.bookGateway = bookGateway;
   }
 

@@ -13,5 +13,5 @@ public interface BookGateway {
 
   Optional<List<Book>> findBooksByAuthor(String Author);
 
-  Optional<Book> getBookByISBN(String isbn);
+  Optional<Book> findBookByISBN(String isbn);
 }

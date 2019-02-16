@@ -32,7 +32,7 @@ public class InMemoryRepository implements BookGateway {
   }
 
   @Override
-  public Optional<Book> getBookByISBN(String isbn) {
+  public Optional<Book> findBookByISBN(String isbn) {
     return inMemoryDB.values()
             .stream()
             .filter(book -> book.getIsbn().equalsIgnoreCase(isbn))

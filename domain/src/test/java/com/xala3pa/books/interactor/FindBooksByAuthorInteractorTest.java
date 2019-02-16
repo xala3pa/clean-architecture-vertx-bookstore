@@ -13,31 +13,27 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class FindAllBooksInteractorTest {
+class FindBooksByAuthorInteractorTest {
 
   private static final String CLEAN_ARCHITECTURE = "Clean Architecture";
   private static final String ISBN_CLEAN_ARCH = "9780134494166";
-  private static final String CLEAN_CODE = "Clean code";
-  private static final String ISBN_CLEAN_CODE = "1973618361543";
   private static final String ROBERT_C_MARTIN = "Robert C. Martin";
+  private static final String UNKNOWN_AUTHOR = "unkown";
 
   private Book cleanArchitectureBook;
-  private Book cleanCodeBook;
 
   @Mock
   private BookGateway bookGateway;
 
   @InjectMocks
-  private FindAllBooksInteractor findAllBooksInteractor = new FindAllBooksInteractor(bookGateway);
+  private FindBooksByAuthorInteractor findBooksByAuthorInteractor = new FindBooksByAuthorInteractor(bookGateway);
 
   @BeforeEach
   void setUp() {
@@ -49,34 +45,27 @@ class FindAllBooksInteractorTest {
             .bookCategory(BookCategory.TECHNICAL)
             .bookStatus(BookStatus.READING)
             .build();
-
-    cleanCodeBook = Book.builder()
-            .title(CLEAN_CODE)
-            .isbn(ISBN_CLEAN_CODE)
-            .author(ROBERT_C_MARTIN)
-            .description("Clean Code, a handbook of Agile Software Craftsmanship")
-            .bookCategory(BookCategory.TECHNICAL)
-            .bookStatus(BookStatus.READ)
-            .build();
   }
 
   @Test
-  void should_return_all_books() throws BooksNotFoundException {
-    Optional<List<Book>> books = Optional.of(Arrays.asList(cleanArchitectureBook, cleanCodeBook));
+  void should_return_the_book_by_author() throws BooksNotFoundException {
 
-    when(bookGateway.findAllBooks()).thenReturn(books);
+    Optional<List<Book>> books = Optional.of(Collections.singletonList(cleanArchitectureBook));
 
-    List<Book> allBooks = findAllBooksInteractor.getBooks();
+    when(bookGateway.findBooksByAuthor(anyString())).thenReturn(books);
 
-    assertThat(allBooks).hasSize(books.get().size())
-            .contains(cleanArchitectureBook,cleanCodeBook);
+    List<Book> booksByAuthor = findBooksByAuthorInteractor.getBooks(ROBERT_C_MARTIN);
+
+    assertThat(booksByAuthor).hasSize(books.get().size())
+            .contains(cleanArchitectureBook);
+
   }
 
   @Test
   void should_throw_a_BooksNotFoundException_when_we_do_not_have_books() {
 
-    when(bookGateway.findAllBooks()).thenReturn(Optional.of(new ArrayList<>()));
+    when(bookGateway.findBooksByAuthor(anyString())).thenReturn(Optional.of(new ArrayList<>()));
 
-    Assertions.assertThrows(BooksNotFoundException.class, () -> findAllBooksInteractor.getBooks());
+    Assertions.assertThrows(BooksNotFoundException.class, () -> findBooksByAuthorInteractor.getBooks(UNKNOWN_AUTHOR));
   }
 }

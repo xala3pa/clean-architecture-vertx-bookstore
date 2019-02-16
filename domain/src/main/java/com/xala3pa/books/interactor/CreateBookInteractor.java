@@ -24,7 +24,7 @@ public class CreateBookInteractor implements CreateBook {
   public Book save(Book book) {
     bookValidator.validate(book);
 
-    if (bookGateway.getBookByISBN(book.getIsbn()).isPresent()) {
+    if (bookGateway.findBookByISBN(book.getIsbn()).isPresent()) {
       throw new BookAlreadyExistsException("Book already exists in our system");
     }
     Book newBook = Book.builder()

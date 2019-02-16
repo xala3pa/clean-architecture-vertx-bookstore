@@ -13,31 +13,27 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class FindAllBooksInteractorTest {
+class FindBookByISBNInteractorTest {
 
   private static final String CLEAN_ARCHITECTURE = "Clean Architecture";
   private static final String ISBN_CLEAN_ARCH = "9780134494166";
-  private static final String CLEAN_CODE = "Clean code";
-  private static final String ISBN_CLEAN_CODE = "1973618361543";
   private static final String ROBERT_C_MARTIN = "Robert C. Martin";
+  private static final String UNKNOWN_ISBN = "121212121212";
 
   private Book cleanArchitectureBook;
-  private Book cleanCodeBook;
 
   @Mock
   private BookGateway bookGateway;
 
   @InjectMocks
-  private FindAllBooksInteractor findAllBooksInteractor = new FindAllBooksInteractor(bookGateway);
+  private FindBookByISBNInteractor findBookByISBNInteractor = new FindBookByISBNInteractor(bookGateway);
 
   @BeforeEach
   void setUp() {
@@ -49,34 +45,26 @@ class FindAllBooksInteractorTest {
             .bookCategory(BookCategory.TECHNICAL)
             .bookStatus(BookStatus.READING)
             .build();
-
-    cleanCodeBook = Book.builder()
-            .title(CLEAN_CODE)
-            .isbn(ISBN_CLEAN_CODE)
-            .author(ROBERT_C_MARTIN)
-            .description("Clean Code, a handbook of Agile Software Craftsmanship")
-            .bookCategory(BookCategory.TECHNICAL)
-            .bookStatus(BookStatus.READ)
-            .build();
   }
 
   @Test
-  void should_return_all_books() throws BooksNotFoundException {
-    Optional<List<Book>> books = Optional.of(Arrays.asList(cleanArchitectureBook, cleanCodeBook));
+  void should_return_the_book_by_ISBN() throws BooksNotFoundException {
 
-    when(bookGateway.findAllBooks()).thenReturn(books);
+    Optional<Book> cleanArchitectureBook = Optional.of(this.cleanArchitectureBook);
 
-    List<Book> allBooks = findAllBooksInteractor.getBooks();
+    when(bookGateway.findBookByISBN(anyString())).thenReturn(cleanArchitectureBook);
 
-    assertThat(allBooks).hasSize(books.get().size())
-            .contains(cleanArchitectureBook,cleanCodeBook);
+    final Book book = findBookByISBNInteractor.getBooks(ISBN_CLEAN_ARCH);
+
+    assertThat(book.getIsbn()).isEqualTo(ISBN_CLEAN_ARCH);
+    assertThat(book.getTitle()).isEqualTo(CLEAN_ARCHITECTURE);
   }
 
   @Test
-  void should_throw_a_BooksNotFoundException_when_we_do_not_have_books() {
+  void should_throw_a_BookNotFoundException_when_there_is_not_book_by_ISBN() {
 
-    when(bookGateway.findAllBooks()).thenReturn(Optional.of(new ArrayList<>()));
+    when(bookGateway.findBookByISBN(anyString())).thenReturn(Optional.empty());
 
-    Assertions.assertThrows(BooksNotFoundException.class, () -> findAllBooksInteractor.getBooks());
+    Assertions.assertThrows(BooksNotFoundException.class, () -> findBookByISBNInteractor.getBooks(UNKNOWN_ISBN));
   }
 }

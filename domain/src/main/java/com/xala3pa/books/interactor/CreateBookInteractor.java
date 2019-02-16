@@ -32,6 +32,7 @@ public class CreateBookInteractor implements CreateBook {
             .isbn(book.getIsbn())
             .title(book.getTitle())
             .author(book.getAuthor())
+            .description(book.getDescription())
             .bookCategory(book.getBookCategory())
             .bookStatus(book.getBookStatus())
             .dateAdded(from(Instant.now()))

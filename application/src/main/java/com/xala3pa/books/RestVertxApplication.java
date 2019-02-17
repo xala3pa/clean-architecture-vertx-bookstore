@@ -27,7 +27,9 @@ public class RestVertxApplication extends AbstractVerticle {
     Json.mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     // Create a router object.
     Router router = Router.router(vertx);
+
     router.route().handler(BodyHandler.create());
+    router.route("/").handler(bookController::landingPage);
     router.get("/books").handler(bookController::findAllBooks);
     router.get("/books/:isbn").handler(bookController::findBookByISBN);
     router.get("/books/author/:author").handler(bookController::findBooksByAuthor);

@@ -49,6 +49,14 @@ public class VertxBookController {
     }
   }
 
+  public void landingPage(RoutingContext routingContext) {
+    HttpServerResponse response = routingContext.response();
+
+    response.putHeader("content-type", "text/html")
+            .putHeader("charset", "UTF-8")
+            .end("Simple bookstore made with &#x2764 and Vert.x");
+  }
+
   public void findAllBooks(RoutingContext routingContext) {
     HttpServerResponse response = routingContext.response();
     try {

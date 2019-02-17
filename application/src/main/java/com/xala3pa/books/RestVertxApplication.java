@@ -35,7 +35,6 @@ public class RestVertxApplication extends AbstractVerticle {
     router.get("/books/author/:author").handler(bookController::findBooksByAuthor);
     router.post("/books").handler(bookController::createBook);
 
-    // Create the HTTP server and pass the "accept" method to the request handler.
     vertx
             .createHttpServer()
             .requestHandler(router)

@@ -28,8 +28,10 @@ dependencies {
     implementation project(':adapter:vertx-controller')
     implementation project(':config')
     implementation "io.vertx:vertx-web:$vertxVersion"
-    testImplementation "io.vertx:vertx-junit5:$vertxVersion"
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitJupiterEngineVersion")
+    testImplementation "io.vertx:vertx-web-client:$vertxVersion"
+    testImplementation group: 'io.vertx', name: 'vertx-unit', version: '3.0.0'
+    testImplementation "io.vertx:vertx-unit:x$vertxVersion"
+    testImplementation 'junit:junit:4.12'
 }
 
 shadowJar {

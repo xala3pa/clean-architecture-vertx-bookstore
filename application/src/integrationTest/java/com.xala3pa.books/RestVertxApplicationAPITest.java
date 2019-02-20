@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class RestVertxApplicationRestTest {
+public class RestVertxApplicationAPITest {
 
   public static final int HTTP_STATUS_CODE_OK = 200;
 
@@ -33,5 +33,4 @@ public class RestVertxApplicationRestTest {
             .assertThat()
             .statusCode(HTTP_STATUS_CODE_OK);
   }
-
 }

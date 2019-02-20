@@ -37,6 +37,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.assertj:assertj-core:3.11.1'
     integrationTestImplementation 'io.rest-assured:rest-assured:3.3.0'
+    integrationTestImplementation group: 'pl.pragmatists', name: 'JUnitParams', version: '0.3.6'
+    integrationTestImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
 }
 
 shadowJar {

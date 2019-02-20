@@ -15,7 +15,8 @@ public class InMemoryRepository implements BookGateway {
 
   @Override
   public Book save(Book book) {
-    return inMemoryDB.put(book.getID(), book);
+    inMemoryDB.put(book.getID(), book);
+    return book;
   }
 
   @Override

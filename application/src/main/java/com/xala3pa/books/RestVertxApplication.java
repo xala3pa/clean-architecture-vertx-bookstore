@@ -9,11 +9,12 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
+import io.vertx.ext.web.handler.ErrorHandler;
 
 public class RestVertxApplication extends AbstractVerticle {
 
   private static final int HTTP_PORT = 8080;
-  private final VertxConfig vertxConfig =  new VertxConfig();
+  private final VertxConfig vertxConfig = new VertxConfig();
   private final VertxBookController bookController = vertxConfig.getVertxBookController();
 
   @Override
@@ -34,6 +35,8 @@ public class RestVertxApplication extends AbstractVerticle {
     router.get("/books/:isbn").handler(bookController::findBookByISBN);
     router.get("/books/author/:author").handler(bookController::findBooksByAuthor);
     router.post("/books").handler(bookController::createBook);
+
+    router.route("/books/*").failureHandler(ErrorHandler.create());
 
     vertx
             .createHttpServer()

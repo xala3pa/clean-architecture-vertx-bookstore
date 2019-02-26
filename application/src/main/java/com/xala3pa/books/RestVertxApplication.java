@@ -10,6 +10,7 @@ import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.ErrorHandler;
+import io.vertx.ext.web.handler.TimeoutHandler;
 
 public class RestVertxApplication extends AbstractVerticle {
 
@@ -37,6 +38,7 @@ public class RestVertxApplication extends AbstractVerticle {
     router.post("/books").handler(bookController::createBook);
 
     router.route("/books/*").failureHandler(ErrorHandler.create());
+    router.route("/").handler(TimeoutHandler.create());
 
     vertx
             .createHttpServer()

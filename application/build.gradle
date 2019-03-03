@@ -33,7 +33,7 @@ dependencies {
     implementation project(':config')
     implementation "io.vertx:vertx-web:$vertxVersion"
     testImplementation "io.vertx:vertx-web-client:$vertxVersion"
-    testImplementation group: 'io.vertx', name: 'vertx-unit', version: '3.0.0'
+    testImplementation group: 'io.vertx', name: 'vertx-unit', version: '3.6.3'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.assertj:assertj-core:3.11.1'
     integrationTestImplementation 'io.rest-assured:rest-assured:3.3.0'

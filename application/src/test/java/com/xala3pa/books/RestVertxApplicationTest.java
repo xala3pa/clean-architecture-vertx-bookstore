@@ -1,6 +1,7 @@
 package com.xala3pa.books;
 
 import io.vertx.core.DeploymentOptions;
+import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonObject;
@@ -59,7 +60,7 @@ public class RestVertxApplicationTest {
                 context.assertTrue(response.body().toString().contains("Simple bookstore made with &#x2764 and Vert.x"));
                 async.complete();
               } else {
-                context.fail("Something went wrong:  " + asyncResult.cause());
+                async.resolve(Future.failedFuture(asyncResult.cause()));
               }
             });
   }
